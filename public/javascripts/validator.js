@@ -1,4 +1,8 @@
 var validator = {
+  // This function help writing unit test
+  getCurrentDate: function() {
+    return new Date();
+  },
   'customer-name': function() {
     return true;
   },
@@ -37,12 +41,24 @@ var validator = {
       // month in [0,12], month >= current month
       var year = parseInt(date[1]);
       // year >= current year
-      var now = new Date();
+      var now = this.getCurrentDate();
       // Month in js is 0 based
       var currentMonth = now.getMonth() + 1;
       // We only need the last 2 digit
       var currentYear = now.getYear() % 100;
-      return month >= currentMonth && year >= currentYear;
+
+      // Month should be between 1 to 12
+      if (month < 1 || month > 12) {
+        return false;
+      }
+      // The expiration date should before current date
+      if ( year > currentYear ) {
+        return true;
+      } else if (year == currentYear) {
+        return month >= currentMonth;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }

@@ -1,0 +1,1 @@
+const testValidate = require('./test/testValidator.js');
