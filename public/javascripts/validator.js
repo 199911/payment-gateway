@@ -72,6 +72,9 @@ var validator = {
 
 // Simple way to make the front-end and back-end using the same
 // validator logic, prevent subtle integration bugs
-if (module) {
-  module.exports = validator;
+try {
+  if (module) {
+    module.exports = validator;
+  }
+} catch (e) {
 }

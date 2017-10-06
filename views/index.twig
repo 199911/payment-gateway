@@ -11,13 +11,13 @@
           <label for="customer-name">
             <span>Customer Name: </span>
           </label>
-          <input type="text" id="customer-name" name="customer-name">
+          <input type="text" id="customer-name" name="customer-name" required>
         </p>
         <p>
           <label for="phone">
             <span>Customer Phone Number: </span>
           </label>
-          <input type="text" id="phone" name="customer-phone">
+          <input type="text" id="customer-phone" name="customer-phone" required>
         </p>
         <p>
           <label for="currency">
@@ -36,7 +36,7 @@
           <label for="price">
             <span>Price: </span>
           </label>
-          <input type="text" id="price" name="price">
+          <input type="text" id="price" name="price" required>
         </p>
     </section>
     <section>
@@ -45,30 +45,31 @@
           <label for="cardholder-name">
             <span>Customer Name: </span>
           </label>
-          <input type="text" id="cardholder-name" name="cardholder-name">
+          <input type="text" id="cardholder-name" name="cardholder-name" required>
         </p>
         <p>
           <label for="card-number">
             <span>Card number:</span>
           </label>
-            <input type="text" id="card-number" name="card-number">
+            <input type="text" id="card-number" name="card-number" required>
         </p>
         <p>
           <label for="expiration">
             <span>Expiration date:</span>
             <em>formatted as mm/yy</em>
           </label>
-          <input type="text" id="expiration" name="expiration">
+          <input type="text" id="expiration" name="expiration" required>
         </p>
         <p>
           <label for="card-cvv">
             <span>Card CVV:</span>
           </label>
-          <input type="text" id="card-cvv" name="card-cvv">
+          <input type="text" id="card-cvv" name="card-cvv" required>
         </p>
     </section>
     <section>
       <p> <button type="submit">Validate the payment</button> </p>
     </section>
   </form>
+  <script type="text/javascript" src="/javascripts/validator.js"></script>
 {% endblock %}
