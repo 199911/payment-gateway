@@ -6,6 +6,7 @@ const getCreditCardType = require('../lib/getCreditCardType.js');
 const gateway = require('../lib/gateway.js');
 const db = require('../lib/db.js');
 const uuidv4 = require('uuid/v4');
+const cache = require('../lib/cache.js');
 
 /* GET home page. */
 router
@@ -79,6 +80,15 @@ router
         })
         .then(function(){
           // TODO update cache
+          return cache.setAsync(uuid, {
+            uuid: uuid,
+            name: data['customer-name'],
+            phone: data['customer-phone'],
+            currency: data['currency'],
+            price: data['price'],
+          });
+        })
+        .then(function(){
           res.render('index', { message: `Your order id: ${uuid}` });
         })
         .catch(function(err) {
