@@ -32,15 +32,13 @@ console.log('test currency');
 //
 
 expect = true;
-assert(expect === validator['price']('1234'), 'Expect string 1234 is valid');
+assert(expect === validator['price']('1234.00'), 'Expect string 1234 is valid');
 assert(expect === validator['price']('0.13'), 'Expect string 0.13 is valid');
-assert(expect === validator['price'](1234), 'Expect number 1234 is valid');
-assert(expect === validator['price'](0.13), 'Expect number 0.13 is valid');
 
 expect = false;
-assert(expect === validator['price']('ASDF'), 'Expect ASDF is invalid');
+assert(expect === validator['price']('1A34'), 'Expect 12A34 is invalid');
+assert(expect === validator['price']('2.4'), 'Expect string -12.34 is invalid');
 assert(expect === validator['price']('-12.34'), 'Expect string -12.34 is invalid');
-assert(expect === validator['price'](-12.34), 'Expect number -12.34 is invalid');
 
 console.log('test price');
 

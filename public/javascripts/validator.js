@@ -22,7 +22,7 @@ var validator = {
   },
   price: function(price) {
     // Allow float number
-    var reg = new RegExp('^[0-9.]+$');
+    var reg = /^[0-9]+\.[0-9]{2}$/;
     return reg.test(price);
   },
   'cardholder-name': function() {

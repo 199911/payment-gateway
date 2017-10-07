@@ -29,17 +29,30 @@ router
     data.isValid = isValid;
     // Gateway logic
     let paymentGateway;
+    // Detect error related to payment gateway
+    let gatewayMessage;
     if (data['card-type'] === 'amex') {
       if (data['currency'] === 'USD') {
         paymentGateway = gateway.paypal;
       } else {
         paymentGateway = null;
+        gatewayMessage = {
+          messageTitle: 'Error',
+          messageBody: 'Only USD payment is allowed with AMEX card'
+        };
       }
     } else {
       if (data['currency'] === 'USD' || data['currency'] === 'EUR' || data['currency'] === 'AUD') {
         paymentGateway = gateway.paypal;
       } else {
-        paymentGateway = gateway.braintree;
+        if (data['currency'] === 'JPY' && (data['price'] % 1 !== 0)) {
+          gatewayMessage = {
+            messageTitle: 'Error',
+            messageBody: 'For JPY payment, only integer price is allowed'
+          };
+        } else {
+          paymentGateway = gateway.braintree;
+        }
       }
     }
     if (paymentGateway) {
@@ -101,10 +114,7 @@ router
           });
         });
     } else {
-      res.render('index', {
-        messageTitle: 'Error',
-        messageBody: 'Only USD payment is allowed with AMEX card'
-      });
+      res.render('index', gatewayMessage);
     }
   });
 
