@@ -21,7 +21,7 @@ router
     // Validation
     let isValid = true;
     for (var key in validator) {
-      if (key == 'getCurrentDate') {
+      if (key == 'getCurrentDate' || key == 'order-id' || key == 'order-name') {
         continue;
       }
       isValid = isValid && validator[key](data[key]);
