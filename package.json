@@ -15,6 +15,7 @@
     "express": "~4.14.0",
     "morgan": "~1.7.0",
     "paypal-rest-sdk": "1.7.1",
+    "promise-mysql": "3.1.0",
     "serve-favicon": "~2.3.0",
     "twig": "~0.9.5"
   }
