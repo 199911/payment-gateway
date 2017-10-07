@@ -42,6 +42,7 @@ router
       }
     }
     if (paymentGateway) {
+      const uuid = uuidv4();
       paymentGateway.payAsync(data)
         .then(function(res) {
           console.log('res');
@@ -49,16 +50,25 @@ router
           return res;
         })
         .catch(function(err) {
-          console.log('err');
-          console.log(err);
+          // TODO: move error message formatter to gateway object
+          let message;
+          // Paypal
           if (err.response) {
-              console.log(err.response);
+            message = err.response.message;
+            console.log('paypal error');
+            console.log(err.response);
           }
-          throw err;
+          // Braintree
+          if (err.length && err.length > 0) {
+            message = err[0].message;
+            console.log('braintree error');
+            console.log(err);
+          }
+          throw new Error(message);
         })
         .then(function(res) {
           const record = {
-            uuid: uuidv4(),
+            uuid: uuid,
             name: data['customer-name'],
             phone: data['customer-phone'],
             currency: data['currency'],
@@ -69,15 +79,14 @@ router
         })
         .then(function(){
           // TODO update cache
-          // TODO send proper response to front end
+          res.render('index', { message: `Your order id: ${uuid}` });
         })
         .catch(function(err) {
-          // TODO send proper response to front end
+          res.render('index', { message: `Error: ${err.message}` });
         });
     } else {
-      // TODO error handling, amex must use usd
+      res.render('index', { message: 'Error: Only USD payment is allowed with AMEX card' });
     }
-    res.send(JSON.stringify(data, null, 4));
   });
 
 module.exports = router;

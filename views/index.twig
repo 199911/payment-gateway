@@ -1,8 +1,6 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-  <h1>{{title}}</h1>
-  <p>Welcome to {{title}}</p>
   <form action="/create-payment" method="post">
     <h1>Payment form</h1>
     <section>
@@ -73,4 +71,11 @@
   </form>
   <script type="text/javascript" src="/javascripts/validator.js"></script>
   <script type="text/javascript" src="/javascripts/validation.js"></script>
+  <script type="text/javascript">
+  {% if message %}
+    setTimeout(function(){
+      alert("{{ message }}")
+    } , 1000);
+  {% endif %}
+  </script>
 {% endblock %}
