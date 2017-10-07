@@ -1,15 +1,28 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+// Reuse the front-end validation logic
+const validator = require('../public/javascripts/validator.js');
 
 /* GET home page. */
 router
   .get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
-  })
-  .post('/', function(req, res, next) {
+  });
+
+router
+  .post('/create-payment', function(req, res, next) {
     const data = req.body;
     // Validation
-    res.render('index', { title: 'Express' });
+    let isValid = true;
+    for (var key in validator) {
+      if (key == 'getCurrentDate') {
+        continue;
+      }
+      isValid = isValid && validator[key](data[key]);
+    }
+    data.isValid = isValid;
+
+    res.send(JSON.stringify(data, null, 4));
   });
 
 module.exports = router;
