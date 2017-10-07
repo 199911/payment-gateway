@@ -17,6 +17,7 @@ router
 router
   .post('/create-payment', function(req, res, next) {
     const data = req.body;
+
     // Validation
     let isValid = true;
     for (var key in validator) {
@@ -26,7 +27,16 @@ router
       isValid = isValid && validator[key](data[key]);
     }
     data['card-type'] = getCreditCardType(data['card-number']);
-    data.isValid = isValid;
+    if (!isValid) {
+      // This branch will be hit only if user send POST require directly
+      // Because the front-end and back-end are using the same validation logic
+      res.render('index', {
+        messageTitle: 'Error',
+        messageBody: 'Invalid form data'
+      });
+      return ;
+    }
+
     // Gateway logic
     let paymentGateway;
     // Detect error related to payment gateway
@@ -121,11 +131,27 @@ router
 router
   .post('/check-payment', function(req, res, next) {
     const data = req.body;
-    // TODO: Validation
+
+    // Validation
+    let isValid = true;
+    for (var key of ['order-id', 'order-name']) {
+      isValid = isValid && validator[key](data[key]);
+    }
+    if (!isValid) {
+      // This branch will be hit only if user send POST require directly
+      // Because the front-end and back-end are using the same validation logic
+      res.render('index', {
+        messageTitle: 'Error',
+        messageBody: 'Invalid form data'
+      });
+      return ;
+    }
+
     // Query logic
     cache.getAsync(data['order-id'])
       .then(function(cacheData) {
-        if (cacheData && (data['customer-name'] === cacheData.name)) {
+        // MySQL is case insensitive by default, check the customer name here
+        if (cacheData && (data['order-name'] === cacheData.name)) {
           let recordMessage = '';
           recordMessage += `Order ID: ${cacheData.uuid}\n`;
           recordMessage += `Customer Name: ${cacheData.name}\n`;

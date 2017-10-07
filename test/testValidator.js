@@ -114,3 +114,23 @@ assert(expect === validator['card-cvv']('1234-10987'), 'Expect 1234-10987 is inv
 assert(expect === validator['card-cvv']('234@#$%^&'), 'Expect 234@#$%^& is invalid');
 
 console.log('test card-cvv');
+
+//
+
+expect = true;
+assert(expect === validator['order-id']('7baa07c7-39ff-4299-a0fa-32cae789bf11'), 'Expect string 7baa07c7-39ff-4299-a0fa-32cae789bf11 is valid');
+
+expect = false;
+assert(expect === validator['order-id']('11982iouqwhiuc1p93rc98hugerwfhqwec3d'), 'Expect string 11982iouqwhiuc1p93rc98hugerwfhqwec3d is invalid');
+
+console.log('test order-id');
+
+//
+
+expect = true;
+assert(expect === validator['order-name']('Your name'), 'Expect string Your name is valid');
+
+expect = false;
+assert(expect === validator['order-name'](''), 'Expect empty string is invalid');
+
+console.log('test order-name');

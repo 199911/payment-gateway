@@ -92,6 +92,19 @@ var validator = {
     var reg = new RegExp('^[0-9.]{3,4}$');
     return reg.test(price);
   },
+  'order-id': function(id) {
+    if (!typeof id === 'string' ) {
+      return false;
+    }
+    var reg = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
+    return reg.test(id);
+  },
+  'order-name': function(name) {
+    if (!typeof name === 'string' ) {
+      return false;
+    }
+    return !!name;
+  },
 }
 
 // Simple way to make the front-end and back-end using the same
