@@ -89,13 +89,22 @@ router
           });
         })
         .then(function(){
-          res.render('index', { message: `Your order id: ${uuid}` });
+          res.render('index', {
+            messageTitle: 'Success',
+            messageBody: `Your order id: ${uuid}`
+          });
         })
         .catch(function(err) {
-          res.render('index', { message: `Error: ${err.message}` });
+          res.render('index', {
+            messageTitle: 'Error',
+            messageBody: `${err.message}`
+          });
         });
     } else {
-      res.render('index', { message: 'Error: Only USD payment is allowed with AMEX card' });
+      res.render('index', {
+        messageTitle: 'Error',
+        messageBody: 'Only USD payment is allowed with AMEX card'
+      });
     }
   });
 
@@ -107,13 +116,22 @@ router
     cache.getAsync(data['order-id'])
       .then(function(cacheData) {
         if (cacheData && (data['customer-name'] === cacheData.name)) {
-          res.render('index', { message: JSON.stringify(cacheData) });
+          res.render('index', {
+            messageTitle: 'Order found',
+            messageBody: JSON.stringify(cacheData, null, 2)
+          });
         } else {
-          res.render('index', { message: 'Order not found' });
+          res.render('index', {
+            messageTitle: 'Error',
+            messageBody: 'Order not found'
+          });
         }
       })
       .catch(function(err) {
-        res.render('index', { message: 'Error: cannot check record' });
+        res.render('index', {
+          messageTitle: 'Error',
+          messageBody: 'Cannot check record'
+        });
       });
   });
 
