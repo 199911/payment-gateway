@@ -41,7 +41,7 @@
         <h2>Payment information</h2>
         <p>
           <label for="cardholder-name">
-            <span>Customer Name: </span>
+            <span>Card holder name: </span>
           </label>
           <input type="text" id="cardholder-name" name="cardholder-name" required>
         </p>
@@ -69,12 +69,33 @@
       <p> <button type="submit">Validate the payment</button> </p>
     </section>
   </form>
+  <form action="/check-payment" method="post">
+    <h1>Payment form</h1>
+    <section>
+        <h2>Order information</h2>
+        <p>
+          <label for="order-id">
+            <span>Order id: </span>
+          </label>
+          <input type="text" id="order-id" name="order-id" required>
+        </p>
+        <p>
+          <label for="customer-name">
+            <span>Customer Name: </span>
+          </label>
+          <input type="text" id="customer-name" name="customer-name" required>
+        </p>
+    </section>
+    <section>
+      <p> <button type="submit">Check the payment</button> </p>
+    </section>
+  </form>
   <script type="text/javascript" src="/javascripts/validator.js"></script>
   <script type="text/javascript" src="/javascripts/validation.js"></script>
   <script type="text/javascript">
   {% if message %}
     setTimeout(function(){
-      alert("{{ message }}")
+      alert('{{ message }}')
     } , 1000);
   {% endif %}
   </script>

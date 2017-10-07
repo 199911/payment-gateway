@@ -99,4 +99,22 @@ router
     }
   });
 
+router
+  .post('/check-payment', function(req, res, next) {
+    const data = req.body;
+    // TODO: Validation
+    // Query logic
+    cache.getAsync(data['order-id'])
+      .then(function(cacheData) {
+        if (cacheData && (data['customer-name'] === cacheData.name)) {
+          res.render('index', { message: JSON.stringify(cacheData) });
+        } else {
+          res.render('index', { message: 'Order not found' });
+        }
+      })
+      .catch(function(err) {
+        res.render('index', { message: 'Error: cannot check record' });
+      });
+  });
+
 module.exports = router;
