@@ -74,20 +74,9 @@ router
           return res;
         })
         .catch(function(err) {
-          // TODO: move error message formatter to gateway object
-          let message;
-          // Paypal
-          if (err.response) {
-            message = err.response.message;
-            console.log('paypal error');
-            console.log(err.response);
-          }
-          // Braintree
-          if (err.length && err.length > 0) {
-            message = err[0].message;
-            console.log('braintree error');
-            console.log(err);
-          }
+          // Extract the error message from different gateway, re-throw the error to let next
+          // catch to handle
+          let message = paymentGateway.extractErrorMessage(err);
           throw new Error(message);
         })
         .then(function(res) {
@@ -117,6 +106,7 @@ router
           });
         })
         .catch(function(err) {
+          // Gather error message and give proper response to user
           res.render('index', {
             messageTitle: 'Error',
             messageBody: `${err.message}`
