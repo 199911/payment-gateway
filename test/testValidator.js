@@ -6,6 +6,16 @@ let expect;
 //
 
 expect = true;
+assert(expect === validator['customer-name']('Your name'), 'Expect string Your name is valid');
+
+expect = false;
+assert(expect === validator['customer-name'](''), 'Expect empty string is invalid');
+
+console.log('test customer-name');
+
+//
+
+expect = true;
 assert(expect === validator['customer-phone']('1234'), 'Expect string 1234 is valid');
 assert(expect === validator['customer-phone'](1234), 'Expect number 1234 is valid');
 
@@ -41,6 +51,16 @@ assert(expect === validator['price']('2.4'), 'Expect string -12.34 is invalid');
 assert(expect === validator['price']('-12.34'), 'Expect string -12.34 is invalid');
 
 console.log('test price');
+
+//
+
+expect = true;
+assert(expect === validator['cardholder-name']('Your name'), 'Expect string Your name is valid');
+
+expect = false;
+assert(expect === validator['cardholder-name'](''), 'Expect empty string is invalid');
+
+console.log('test cardholder-name');
 
 //
 

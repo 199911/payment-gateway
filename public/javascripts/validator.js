@@ -3,8 +3,8 @@ var validator = {
   getCurrentDate: function() {
     return new Date();
   },
-  'customer-name': function() {
-    return true;
+  'customer-name': function(name) {
+    return !!name;
   },
   'customer-phone': function(phone) {
     // Numerical string
@@ -25,8 +25,8 @@ var validator = {
     var reg = /^[0-9]+\.[0-9]{2}$/;
     return reg.test(price);
   },
-  'cardholder-name': function() {
-    return true;
+  'cardholder-name': function(name) {
+    return !!name;
   },
   'card-number': function(cardNumber) {
     var reg = new RegExp('^[0-9]{12,19}$');
