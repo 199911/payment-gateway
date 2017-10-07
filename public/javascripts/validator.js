@@ -4,14 +4,23 @@ var validator = {
     return new Date();
   },
   'customer-name': function(name) {
+    if (!typeof name === 'string' ) {
+      return false;
+    }
     return !!name;
   },
   'customer-phone': function(phone) {
+    if (!typeof phone === 'string' ) {
+      return false;
+    }
     // Numerical string
     var reg = new RegExp('^[0-9]+$');
     return reg.test(phone);
   },
   currency: function(currency) {
+    if (!typeof currency === 'string' ) {
+      return false;
+    }
     var validCurrencies = [ 'HKD', 'USD', 'AUD', 'EUR', 'JPY', 'CNY'];
     for (var i = 0; i < validCurrencies.length; i++) {
       if (currency === validCurrencies[i]) {
@@ -21,18 +30,30 @@ var validator = {
     return false;
   },
   price: function(price) {
+    if (!typeof price === 'string' ) {
+      return false;
+    }
     // Allow float number
     var reg = /^[0-9]+\.[0-9]{2}$/;
     return reg.test(price);
   },
   'cardholder-name': function(name) {
+    if (!typeof name === 'string' ) {
+      return false;
+    }
     return !!name;
   },
   'card-number': function(cardNumber) {
+    if (!typeof cardNumber === 'string' ) {
+      return false;
+    }
     var reg = new RegExp('^[0-9]{12,19}$');
     return reg.test(cardNumber);
   },
   expiration: function(expiration) {
+    if (!typeof expiration === 'string' ) {
+      return false;
+    }
     // In format MM/YY
     var reg = new RegExp('^[0-9]{2}/[0-9.]{2}$');
     if (reg.test(expiration)) {
@@ -64,6 +85,9 @@ var validator = {
     }
   },
   'card-cvv': function(price) {
+    if (!typeof price === 'string' ) {
+      return false;
+    }
     // 3 or 4 digit number
     var reg = new RegExp('^[0-9.]{3,4}$');
     return reg.test(price);
