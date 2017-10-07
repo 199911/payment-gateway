@@ -102,7 +102,6 @@ router
           return db.insertAsync(record);
         })
         .then(function(){
-          // TODO update cache
           return cache.setAsync(uuid, {
             uuid: uuid,
             name: data['customer-name'],
