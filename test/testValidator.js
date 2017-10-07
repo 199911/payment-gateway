@@ -45,13 +45,14 @@ console.log('test price');
 //
 
 expect = true;
-assert(expect === validator['card-number']('1234'), 'Expect string 1234 is valid');
-assert(expect === validator['card-number'](1234), 'Expect number 1234 is valid');
+assert(expect === validator['card-number']('378282246310005'), 'Expect string 378282246310005 is valid');
+assert(expect === validator['card-number']('5555555555554444'), 'Expect string 5555555555554444 is valid');
+assert(expect === validator['card-number']('4111111111111111'), 'Expect string 4111111111111111 is valid');
+assert(expect === validator['card-number']('6799990100000000019'), 'Expect string 6799990100000000019 is valid');
 
 expect = false;
-assert(expect === validator['card-number']('ASDF'), 'Expect ASDF is invalid');
-assert(expect === validator['card-number']('-12.34'), 'Expect string -12.34 is invalid');
-assert(expect === validator['card-number'](-12.34), 'Expect number -12.34 is invalid');
+assert(expect === validator['card-number']('12345678901'), 'Expect string 12345678901 is invalid');
+assert(expect === validator['card-number']('12345678901234567890'), 'Expect string 12345678901 is invalid');
 assert(expect === validator['card-number']('1234-10987'), 'Expect 1234-10987 is invalid');
 assert(expect === validator['card-number']('234@#$%^&'), 'Expect 234@#$%^& is invalid');
 

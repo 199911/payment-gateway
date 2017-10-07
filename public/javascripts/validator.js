@@ -29,7 +29,7 @@ var validator = {
     return true;
   },
   'card-number': function(cardNumber) {
-    var reg = new RegExp('^[0-9]+$');
+    var reg = new RegExp('^[0-9]{12,19}$');
     return reg.test(cardNumber);
   },
   expiration: function(expiration) {
