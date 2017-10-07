@@ -126,9 +126,15 @@ router
     cache.getAsync(data['order-id'])
       .then(function(cacheData) {
         if (cacheData && (data['customer-name'] === cacheData.name)) {
+          let recordMessage = '';
+          recordMessage += `Order ID: ${cacheData.uuid}\n`;
+          recordMessage += `Customer Name: ${cacheData.name}\n`;
+          recordMessage += `Customer Phone Number: ${cacheData.phone}\n`;
+          recordMessage += `Currency: ${cacheData.currency}\n`;
+          recordMessage += `Price: ${cacheData.price}\n`;
           res.render('index', {
             messageTitle: 'Order found',
-            messageBody: JSON.stringify(cacheData, null, 2)
+            messageBody: recordMessage
           });
         } else {
           res.render('index', {
