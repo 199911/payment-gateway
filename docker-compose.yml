@@ -9,8 +9,8 @@ app:
   volumes:
     - .:/payment-gateway
   links:
-    - redis
     - mysql
+    - redis
 redis:
   container_name: redis
   image: redis:2.8
