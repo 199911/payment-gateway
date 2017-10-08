@@ -111,4 +111,43 @@ Assume you run the repo on Mac
         - 01/21
         - Don't know why I cannot activate this payment card in my PayPal sandbox account
 
+## Bonus
 
+1. Consider how to add additional payment gateways
+    1. Implement a `***Gateway.js` in `/lib`
+        - payAsync: the payment logic
+            - Input: data object
+            - Output: Promise, resolve only if payment success
+        - extractErrorMessage:
+            - Input: the error throw by payAsync
+            - Output: String, error message which will be present to user
+    2. Add the new payment gateway in `lib/gateway.js`
+    3. Add gateway selection logic in `routes/index.js`
+2. Consider how to guarantee payment record are found in your database and Paypal
+    - We need to use another payment api which provide scheduled payment
+    - scheduled payment -> store info in data base -> confirm the payment
+    - scheduled payment (fail) -> halt
+    - scheduled payment -> store info in data base (fail) -> cancel the payment
+3. Consider cache may expired when check order record
+    - In my implementation in `lib/cache.js`, if cache miss, it will automatically fallback to database and update the cache
+    - The result of order not exist is also cached, to prevent database attack by spamming queries on order not exist
+4. Consider the data encryption for the payment record query
+    - If we don't need to do complex query on record query, we can encrypt the data in database, decrypt in app server
+5. Consider how to handle security for saving credit cards
+    - The most security way is not to store any credit cards information
+    - It is recommended by [PCI security standards council](https://www.pcisecuritystandards.org/pdfs/pci_fs_data_storage.pdf)
+
+## Improvement can be done
+
+- Encrypt the config.js data with AWS KMS
+- Hiding the information on which gateway do we use
+    - PayPal gateway is much slower than Braintress
+    - Random wait can be added to braintree gateway, if we don't want user know which gateway do we use
+- Apply more validation logic in front end to reduce server load on handing invalid payment
+    - JPY price format (decimal number is not allowed)
+    - CVV digits (4 digits for amex, 3 digits for others)
+    - Even we have validation in front end, validation in back end need to be kept
+        - Protect server from malicious POST requests sent directly
+- Refactor the gateway logic in `routes/index.js`
+    - Make adding new gateway easier
+- Move cache expiration time to `config.js`
