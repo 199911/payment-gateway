@@ -1,6 +1,6 @@
 FROM node:6.11
 
-RUN apt-get update && apt-get install -y build-essential
+# RUN apt-get update && apt-get install -y build-essential
 
 ENV APP_HOME /payment-gateway
 

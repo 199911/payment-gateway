@@ -5,7 +5,7 @@
   "scripts": {
     "start": "sleep 60 && node ./bin/www",
     "test": "node ./test.js",
-    "deploy": "docker-compose up -d"
+    "deploy": "npm install && docker-compose up -d"
   },
   "dependencies": {
     "bluebird": "3.5.1",

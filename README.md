@@ -22,12 +22,13 @@ Assume you run the repo on Mac
     2. Deploy the app
         - npm run deploy
         - Everything run automatically, only need to wait
-            1. Download node.js docker image
-            2. Build app's docker image
-            3. Download mysql docker image
-            4. Download redis docker image
-            5. Build the container
-            6. Wait 1 min after containers build
+            1. Install npm package
+            2. Download node.js docker image
+            3. Build app's docker image
+            4. Download mysql docker image
+            5. Download redis docker image
+            6. Build the container
+            7. Wait 1 min after containers build
                 - Because the MySQL takes some time to set up after the container set up, we wait 1 min to make sure it is ready
 3. Access the app
     - http://127.0.0.1:3000/
